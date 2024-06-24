@@ -20,12 +20,8 @@ func CalculateProfit() {
 	profit := earnings * (1 - taxRate/100)
 	ratio := earnings / profit
 
-	fmt.Print("Earnings: ")
-	fmt.Printf("%.2f", earnings)
-	fmt.Println("")
-	fmt.Print("Profit: ")
-	fmt.Printf("%.2f", profit)
-	fmt.Println("")
-	fmt.Print("Ratio: ")
-	fmt.Printf("%.2f", ratio)
+	fmt.Printf("Earnings: %.2f \n", earnings) // %v %.2f %T %% etc.
+	// formattedProfit := fmt.Sprintf("Profit: %.2f \n", profit)
+	fmt.Printf("Profit: %.2f \n", profit)
+	fmt.Printf("Ratio: %.2f", ratio)
 }
