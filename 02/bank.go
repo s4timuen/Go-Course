@@ -1,12 +1,23 @@
 package main
 
 import (
+	"errors"
 	"fmt"
+	"os"
+	"strconv"
 )
 
+const balanceFileName = "balance.txt"
+
 func main() {
-	var balance float64 = 2000
+	var balance, err = readBalanceFromFile()
 	var option uint
+
+	if err != nil {
+		fmt.Println("\n----------\nERROR")
+		fmt.Println(err)
+		panic(err)
+	}
 
 	// continue keyword to restart loop immediately
 	for option != 4 {
@@ -18,14 +29,37 @@ func main() {
 			printBalance(balance)
 		case 2:
 			balance = depositMoney(balance)
+			writeBalanceToFile(balance)
 		case 3:
 			balance = withdrawMoney(balance)
+			writeBalanceToFile(balance)
 		case 4:
 			// do nothing -> exit
 		default:
 			printInvalidOption()
 		}
 	}
+}
+
+func writeBalanceToFile(balance float64) {
+	balanceStr := fmt.Sprint(balance)
+	os.WriteFile(balanceFileName, []byte(balanceStr), 0644)
+}
+
+func readBalanceFromFile() (balance float64, err error) {
+	data, err := os.ReadFile(balanceFileName)
+
+	if err != nil {
+		return balance, errors.New("failed to read balance file")
+	}
+
+	balanceStr := string(data)
+	balance, err = strconv.ParseFloat(balanceStr, 64)
+
+	if err != nil {
+		return balance, errors.New("failed to convert balance")
+	}
+	return
 }
 
 func printBalance(balance float64) {
