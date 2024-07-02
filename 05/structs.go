@@ -24,13 +24,28 @@ func (u *user) clearUserName() {
 	u.lastName = ""
 }
 
-func main() {
-	var appUser = user{
-		firstnName: getUserData("Please enter your first name: "),
-		lastName:   getUserData("Please enter your last name: "),
-		birthdate:  getUserData("Please enter your birthdate (DD/MM/YYYY): "),
+// constructor/creator (utility function)
+// convention: starts with new
+func (u *user) newUser(firstnName string, lastName string, birthdate string) user {
+	return user{ // could be a pointer (for large objects)
+		firstnName: firstnName,
+		lastName:   lastName,
+		birthdate:  birthdate,
 		createdAt:  time.Now(),
 	}
+}
+
+func main() {
+	firstnName := getUserData("Please enter your first name: ")
+	lastName := getUserData("Please enter your last name: ")
+	birthdate := getUserData("Please enter your birthdate (DD/MM/YYYY): ")
+
+	var appUser user
+	appUser = appUser.newUser(
+		firstnName,
+		lastName,
+		birthdate,
+	)
 	// printUserData(&appUser)
 	appUser.printUserData()
 	appUser.clearUserName()
