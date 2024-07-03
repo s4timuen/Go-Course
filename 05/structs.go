@@ -26,6 +26,25 @@ func main() {
 	appUser.PrintUserData()
 	appUser.ClearUserName()
 	appUser.PrintUserData()
+
+	email := getUserData("Please enter your email: ")
+	password := getUserData("Please enter your password: ")
+
+	adminUser, err := user.NewAdmin(
+		firstnName,
+		lastName,
+		birthdate,
+		email,
+		password,
+	)
+	if err != nil {
+		fmt.Println("ERROR")
+		fmt.Println(err)
+		return
+	}
+
+	adminUser.User.PrintUserData()
+	adminUser.PrintAdminData()
 }
 
 func getUserData(promptText string) (value string) {

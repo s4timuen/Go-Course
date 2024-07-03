@@ -15,6 +15,34 @@ type User struct {
 	createdAt  time.Time // nested
 }
 
+// struct embedding
+type Admin struct {
+	email    string
+	password string
+	User     User
+}
+
+func NewAdmin(firstName, lastName, birthdate, email, password string) (*Admin, error) {
+	if email == "" || password == "" {
+		return nil, errors.New("email and password are required")
+	}
+
+	return &Admin{
+		email:    email,
+		password: password,
+		User: User{
+			firstnName: firstName,
+			lastName:   lastName,
+			birthdate:  birthdate,
+			createdAt:  time.Now(),
+		},
+	}, nil
+}
+
+func (u *Admin) PrintAdminData() {
+	fmt.Println(u.User.firstnName, u.User.lastName, u.User.birthdate, u.email, u.password, u.User.createdAt)
+}
+
 // constructor/creator pattern (utility function)
 // convention: starts with new
 func New(firstName string, lastName string, birthdate string) (*User, error) {
