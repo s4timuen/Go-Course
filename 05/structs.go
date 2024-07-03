@@ -44,6 +44,7 @@ func main() {
 	}
 
 	adminUser.User.PrintUserData()
+	adminUser.PrintUserData() // anonymous embedding
 	adminUser.PrintAdminData()
 }
 

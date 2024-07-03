@@ -19,7 +19,7 @@ type User struct {
 type Admin struct {
 	email    string
 	password string
-	User     User
+	User
 }
 
 func NewAdmin(firstName, lastName, birthdate, email, password string) (*Admin, error) {
