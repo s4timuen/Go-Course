@@ -2,59 +2,35 @@ package main
 
 import (
 	"fmt"
-	"time"
+
+	"example.com/structs/user"
 )
-
-// casing for private/public
-type user struct {
-	firstnName string
-	lastName   string
-	birthdate  string
-	createdAt  time.Time // nested
-}
-
-// attached to user struct
-// with receiver argument -> works like normal argument -> data is copied
-func (u *user) printUserData() {
-	fmt.Println(u.firstnName, u.lastName, u.birthdate, u.createdAt)
-}
-
-func (u *user) clearUserName() {
-	u.firstnName = ""
-	u.lastName = ""
-}
-
-// constructor/creator (utility function)
-// convention: starts with new
-func (u *user) newUser(firstnName string, lastName string, birthdate string) user {
-	return user{ // could be a pointer (for large objects)
-		firstnName: firstnName,
-		lastName:   lastName,
-		birthdate:  birthdate,
-		createdAt:  time.Now(),
-	}
-}
 
 func main() {
 	firstnName := getUserData("Please enter your first name: ")
 	lastName := getUserData("Please enter your last name: ")
 	birthdate := getUserData("Please enter your birthdate (DD/MM/YYYY): ")
 
-	var appUser user
-	appUser = appUser.newUser(
+	appUser, err := user.New(
 		firstnName,
 		lastName,
 		birthdate,
 	)
+	if err != nil {
+		fmt.Println("ERROR")
+		fmt.Println(err)
+		return
+	}
+
 	// printUserData(&appUser)
-	appUser.printUserData()
-	appUser.clearUserName()
-	appUser.printUserData()
+	appUser.PrintUserData()
+	appUser.ClearUserName()
+	appUser.PrintUserData()
 }
 
 func getUserData(promptText string) (value string) {
 	fmt.Print(promptText)
-	fmt.Scan(&value)
+	fmt.Scanln(&value)
 	return
 }
 
