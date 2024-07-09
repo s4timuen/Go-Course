@@ -3,6 +3,7 @@ package todo
 import (
 	"encoding/json"
 	"errors"
+	"fmt"
 	"os"
 )
 
@@ -33,6 +34,11 @@ func (t *Todo) Save() error {
 		return errWriteFile
 	}
 	return nil
+}
+
+func (t *Todo) Print() {
+	fmt.Println("Todo saved!")
+	fmt.Println("Content: ", t.content)
 }
 
 func (t *Todo) marshalJSON() ([]byte, error) {

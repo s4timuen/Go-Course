@@ -41,7 +41,6 @@ func (n *Note) Save() error {
 	if errWriteFile != nil {
 		return errWriteFile
 	}
-	n.Print()
 	return nil
 }
 

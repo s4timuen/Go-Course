@@ -23,12 +23,12 @@ func main() {
 		fmt.Println(errNewTodo)
 		fmt.Println(errNewNote)
 	} else {
-		err := saveData(userTodo)
+		err := outputData(userTodo)
 		if err != nil {
 			fmt.Println("ERROR")
 			fmt.Println(err)
 		}
-		err = saveData(userNote)
+		err = outputData(userNote)
 		if err != nil {
 			fmt.Println("ERROR")
 			fmt.Println(err)
@@ -36,12 +36,9 @@ func main() {
 	}
 }
 
-func saveData(data Saver) error {
-	err := data.Save()
-	if err != nil {
-		return err
-	}
-	return nil
+func outputData(data Outputtable) error {
+	data.Print()
+	return data.Save()
 }
 
 func getUserInput(message string) (text string) {
