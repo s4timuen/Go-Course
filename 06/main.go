@@ -33,8 +33,9 @@ func main() {
 			fmt.Println("ERROR")
 			fmt.Println(err)
 		}
-		printSomething(1)
-		printSomething(1.5)
+		printSomething(add(1, 2))
+		printSomething(add(1.5, 1.5))
+		printSomething(add(1.5, 1.7))
 		printSomething("test")
 	}
 }
@@ -42,6 +43,10 @@ func main() {
 func outputData(data Outputtable) error {
 	data.Print()
 	return data.Save()
+}
+
+func add[T int | float64 | string](a, b T) T {
+	return a + b
 }
 
 func printSomething(value any) { // same as interface{}
