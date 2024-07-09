@@ -33,12 +33,32 @@ func main() {
 			fmt.Println("ERROR")
 			fmt.Println(err)
 		}
+		printSomething(1)
+		printSomething(1.5)
+		printSomething("test")
 	}
 }
 
 func outputData(data Outputtable) error {
 	data.Print()
 	return data.Save()
+}
+
+func printSomething(value any) { // same as interface{}
+
+	typedValue, isInt := value.(int)
+	fmt.Println(typedValue, "is an integer: ", isInt)
+
+	switch value.(type) { // works only in switch
+	case int:
+		fmt.Println("Int: ", value)
+	case string:
+		fmt.Println("String: ", value)
+	case float64:
+		fmt.Println("Float64: ", value)
+	default:
+		fmt.Println("Other type: ", value)
+	}
 }
 
 func getUserInput(message string) (text string) {
